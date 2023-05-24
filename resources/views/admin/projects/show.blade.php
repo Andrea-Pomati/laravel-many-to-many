@@ -5,6 +5,11 @@
 <div class="main pt-5">
     <h1 class="">Visualizzazione progetto</h1>
     <span>Categoria: {{$project->type->name ?? 'nessuna'}}</span>
+    <div class="d-flex py-3">
+      @foreach($project->technologies as $technology)
+      <span class="badge rounded-pill mx-1" style="background-color: {{$technology->color}}">{{$technology->name}}</span>
+      @endforeach
+    </div>
 
     <hr class="mb-4">
 
