@@ -90,7 +90,9 @@ class ProjectController extends Controller
     {   
         $types = Type::all();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -106,10 +108,17 @@ class ProjectController extends Controller
 
         $this->validation($formData);
 
-        //$project->slug = Str::slug($formData['title'], '-' );
-        $formData['slug'] = Str::slug($formData['title'], '-' );
+        $project->slug = Str::slug($formData['title'], '-' );
+        // $formData['slug'] = Str::slug($formData['title'], '-' );
 
         $project->update($formData);
+
+        if(array_key_exists('technologies', $formData)) {
+
+            $project->technologies()->sync($formData['technologies']);
+        } else {
+            $project->technologies()->detach();
+        }
 
         return redirect()->route('admin.projects.show', $project);
     }
