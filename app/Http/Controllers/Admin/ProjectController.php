@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Str;
@@ -47,11 +48,17 @@ class ProjectController extends Controller
     {
         $formData = $request->all();
 
-
-
         $this->validation($formData);
 
         $project = new Project();
+
+        if($request->hasFile('cover_image')) {
+            
+            //crea la cartella specificata
+            $path = Storage::put('project_images', $request->cover_image);
+
+            $formData['cover_image'] = $path;
+        }
 
         $project->fill($formData);
 
