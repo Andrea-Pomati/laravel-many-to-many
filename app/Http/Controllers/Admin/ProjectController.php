@@ -143,12 +143,16 @@ class ProjectController extends Controller
             'title' => 'required|max:200|min:3',
             'content' => 'required',
             'type_id' => 'nullable|exists:types,id',
+            //technologies
+            'technologies' => 'exists:technologies,id',
+            'cover_image' => 'nullable|image|max:4096',
         ], [
             'title.max' => 'Il titolo deve avere massimo :max caratteri',
             'title.required' => 'Devi inserire un titolo',
             'title.min' => 'Il titolo deve avere minimo :min caratteri',
             'content.required' => 'Il post deve avere un contenuto',
-            'type_id.exists' => 'Il tipo deve essere presente nel nostro sito'
+            'type_id.exists' => 'Il tipo deve essere presente nel nostro sito',
+            'cover_image.image' => 'Il file deve essere di tipo immagine ',
         ])->validate();
     }
 }
