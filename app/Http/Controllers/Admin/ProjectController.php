@@ -115,6 +115,19 @@ class ProjectController extends Controller
 
         $this->validation($formData);
 
+        if($request->hasFile('cover_image')) {
+            
+            if($project->cover_image) {
+
+                Storage::delete($project->cover_image);
+
+            }
+
+            $path = Storage::put('project_images', $request->cover_image);
+
+            $formData['cover_image'] = $path;
+        }
+
         $project->slug = Str::slug($formData['title'], '-' );
         // $formData['slug'] = Str::slug($formData['title'], '-' );
 
