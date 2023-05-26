@@ -5,7 +5,7 @@
 
 <div class="container">
     <h1 class="mb-3">Modifica il progetto</h1>
-    <form action="{{route('admin.projects.update', $project)}}" method="POST">
+    <form action="{{route('admin.projects.update', $project)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -37,6 +37,22 @@
                     </div>
                 @enderror
         </div>
+
+
+        {{-- inserimento file --}}
+
+            <div class="mb-3">
+                <label for="cover_image">Immagine di copertina</label>
+                <input type="file" id="cover_image" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror">
+                    @error('cover_image')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
+            </div>
+        
+                {{-- /inserimento file --}}
+
 
         <div class="mb-3 form-group">
             <h4>Tecnologie</h4>
