@@ -3,6 +3,10 @@
 @section('content')
 
 <div class="main pt-5">
+    <div class="text-center">
+      <img src="{{ asset('storage/' . $project->cover_image) }}" alt="" class="w 50">
+    </div>
+
     <h1>{{$project->title}}</h1>
     <span>Categoria: {{$project->type->name ?? 'nessuna'}}</span>
     <div class="d-flex py-3">
